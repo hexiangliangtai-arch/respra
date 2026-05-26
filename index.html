@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>respon Practice</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="respon練習アプリ">
+      <section class="practice-screen" id="practiceScreen">
+        <header class="app-header">
+          <p class="school-name">respra</p>
+          <div class="target-strip">
+            <strong id="targetNumber">000 000 000</strong>
+          </div>
+          <div class="entry-bar" id="entryBar">
+            <output id="entryDisplay" aria-live="polite">入力してください</output>
+            <button class="clear-button" id="clearButton" type="button" aria-label="全消去">×</button>
+          </div>
+          <p class="message" id="message" aria-live="polite"></p>
+        </header>
+
+        <section class="keypad" aria-label="数字キーパッド">
+          <button class="key number-key" type="button" data-key="1">
+            <span class="digit">1</span>
+          </button>
+          <button class="key number-key" type="button" data-key="2">
+            <span class="digit">2</span>
+            <span class="letters">ABC</span>
+          </button>
+          <button class="key number-key" type="button" data-key="3">
+            <span class="digit">3</span>
+            <span class="letters">DEF</span>
+          </button>
+          <button class="key number-key" type="button" data-key="4">
+            <span class="digit">4</span>
+            <span class="letters">GHI</span>
+          </button>
+          <button class="key number-key" type="button" data-key="5">
+            <span class="digit">5</span>
+            <span class="letters">JKL</span>
+          </button>
+          <button class="key number-key" type="button" data-key="6">
+            <span class="digit">6</span>
+            <span class="letters">MNO</span>
+          </button>
+          <button class="key number-key" type="button" data-key="7">
+            <span class="digit">7</span>
+            <span class="letters">PQRS</span>
+          </button>
+          <button class="key number-key" type="button" data-key="8">
+            <span class="digit">8</span>
+            <span class="letters">TUV</span>
+          </button>
+          <button class="key number-key" type="button" data-key="9">
+            <span class="digit">9</span>
+            <span class="letters">WXYZ</span>
+          </button>
+          <button class="key go-key" id="goButton" type="button">GO</button>
+          <button class="key number-key" type="button" data-key="0">
+            <span class="digit">0</span>
+          </button>
+          <button class="key back-key" id="backButton" type="button" aria-label="1桁削除">←</button>
+        </section>
+
+        <section class="stats" aria-label="練習結果">
+          <div>
+            <span class="stat-label">TIME</span>
+            <strong id="timer">0.00</strong>
+          </div>
+          <div>
+            <span class="stat-label">BEST</span>
+            <strong id="bestTime">--</strong>
+          </div>
+          <button class="next-button" id="nextButton" type="button">次の練習</button>
+        </section>
+        <ol class="history" id="history" aria-label="直近履歴"></ol>
+      </section>
+
+      <section class="confirm-screen" id="confirmScreen" aria-hidden="true">
+        <header class="confirm-header">確認</header>
+        <div class="blurred-entry" id="blurredEntry">000 000 000</div>
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+          <div class="number-pill" id="confirmNumber">000 000 000</div>
+          <div class="first-digit" id="firstDigit">0</div>
+          <h1 id="confirmTitle">出席確認</h1>
+          <button class="submit-button" id="submitButton" type="button">提　出</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
