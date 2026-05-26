@@ -18,6 +18,7 @@ html,
 body {
   min-height: 100%;
   margin: 0;
+  touch-action: manipulation;
 }
 
 body {
@@ -31,6 +32,7 @@ button {
   border: 0;
   font: inherit;
   cursor: pointer;
+  touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -39,6 +41,7 @@ button {
   width: min(100vw, 430px);
   min-height: 100svh;
   overflow: hidden;
+  touch-action: manipulation;
   background: #ffffff;
   box-shadow: 0 0 34px rgba(0, 0, 0, 0.14);
 }
