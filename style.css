@@ -194,10 +194,14 @@ button {
 }
 
 .go-key {
-  color: var(--orange);
+  color: #d2d2d2;
   font-size: clamp(58px, 17vw, 78px);
   font-weight: 900;
   line-height: 1;
+}
+
+.go-key.ready {
+  color: var(--orange);
 }
 
 .back-key {
@@ -251,6 +255,149 @@ button {
   color: var(--muted);
   font-size: 12px;
   font-weight: 700;
+}
+
+.utility-modal {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: none;
+  place-items: center;
+  padding: 24px;
+  background: rgba(80, 80, 80, 0.72);
+}
+
+.utility-modal.open {
+  display: grid;
+}
+
+.utility-card {
+  width: min(100%, 330px);
+  padding: 22px 20px 20px;
+  border: 5px solid var(--gold);
+  border-radius: 8px;
+  background: #ffffff;
+  text-align: center;
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.18);
+}
+
+.utility-card h2 {
+  margin: 0 0 16px;
+  color: #c27400;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.utility-card input {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: 2px solid #e4e4e4;
+  border-radius: 5px;
+  color: var(--text);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.utility-message {
+  min-height: 20px;
+  margin: 10px 0 16px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.utility-message.error {
+  color: var(--error);
+}
+
+.utility-primary-button {
+  width: min(100%, 220px);
+  height: 52px;
+  border-radius: 4px;
+  color: #ffffff;
+  background: var(--orange);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.result-card {
+  padding-top: 18px;
+}
+
+.result-time {
+  margin-bottom: 10px;
+  padding: 12px;
+  border-radius: 6px;
+  background: #fff7db;
+}
+
+.result-time span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.result-time strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--orange);
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.ranking-header {
+  margin: 4px 0 6px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 900;
+  text-align: left;
+}
+
+.ranking-list {
+  min-height: 250px;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.ranking-list li {
+  min-height: 25px;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  border-top: 1px solid #eeeeee;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.ranking-message {
+  display: block;
+  color: var(--muted);
+  line-height: 25px;
+  text-align: center;
+}
+
+.ranking-rank {
+  color: var(--orange);
+  font-weight: 900;
+}
+
+.ranking-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ranking-time {
+  font-weight: 900;
 }
 
 .confirm-screen {

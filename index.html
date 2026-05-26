@@ -24,6 +24,7 @@
         <section class="keypad" aria-label="数字キーパッド">
           <button class="key number-key" type="button" data-key="1">
             <span class="digit">1</span>
+            <span class="letters">ㅤㅤㅤ</span>
           </button>
           <button class="key number-key" type="button" data-key="2">
             <span class="digit">2</span>
@@ -73,7 +74,7 @@
             <span class="stat-label">BEST</span>
             <strong id="bestTime">--</strong>
           </div>
-          <button class="next-button" id="nextButton" type="button">次の練習</button>
+          <button class="next-button" id="nextButton" type="button">やりなおす</button>
         </section>
         <ol class="history" id="history" aria-label="直近履歴"></ol>
       </section>
@@ -88,8 +89,39 @@
           <button class="submit-button" id="submitButton" type="button">提　出</button>
         </div>
       </section>
+
+      <section class="utility-modal nickname-modal" id="nicknameModal" aria-hidden="true">
+        <div class="utility-card" role="dialog" aria-modal="true" aria-labelledby="nicknameTitle">
+          <h2 id="nicknameTitle">ニックネーム</h2>
+          <input
+            id="nicknameInput"
+            type="text"
+            maxlength="12"
+            autocomplete="nickname"
+            placeholder="12文字まで"
+          />
+          <p class="utility-message" id="nicknameMessage">ランキングに表示する名前を入力してください</p>
+          <button class="utility-primary-button" id="saveNicknameButton" type="button">はじめる</button>
+        </div>
+      </section>
+
+      <section class="utility-modal result-modal" id="resultModal" aria-hidden="true">
+        <div class="utility-card result-card" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+          <h2 id="resultTitle">提出完了</h2>
+          <div class="result-time">
+            <span>今回のタイム</span>
+            <strong id="resultTime">0.00秒</strong>
+          </div>
+          <p class="utility-message" id="rankingStatus">ランキング送信中</p>
+          <div class="ranking-header">ONLINE TOP 10</div>
+          <ol class="ranking-list" id="rankingList">
+            <li>読み込み中</li>
+          </ol>
+          <button class="utility-primary-button" id="resultNextButton" type="button">もう１回</button>
+        </div>
+      </section>
     </main>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
   </body>
 </html>
