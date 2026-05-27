@@ -17,6 +17,7 @@ const NICKNAME_STORAGE_KEY = "respraNickname";
 const PLAYER_ID_STORAGE_KEY = "respraPlayerId";
 const MAX_HISTORY = 5;
 const RANKING_LIMIT = 10;
+const KEY_HIT_SLOP = 12;
 
 const firebaseConfig = {
   apiKey: "AIzaSyCqjHOMd2pzvpAgg4M2Gdh1BNE-2zNIktU",
@@ -46,7 +47,7 @@ const confirmScreen = document.getElementById("confirmScreen");
 const confirmNumber = document.getElementById("confirmNumber");
 const firstDigit = document.getElementById("firstDigit");
 const blurredEntry = document.getElementById("blurredEntry");
-const numberKeys = document.querySelectorAll("[data-key]");
+const keypad = document.querySelector(".keypad");
 const nicknameModal = document.getElementById("nicknameModal");
 const nicknameInput = document.getElementById("nicknameInput");
 const nicknameMessage = document.getElementById("nicknameMessage");
@@ -65,6 +66,7 @@ let completed = false;
 let results = loadResults();
 let nickname = sanitizeNickname(localStorage.getItem(NICKNAME_STORAGE_KEY) || "");
 let playerId = getOrCreatePlayerId();
+const lastKeyByPointerId = new Map();
 
 function formatNumber(value) {
   if (!value) {
@@ -168,6 +170,90 @@ function flashKey(button) {
   button.classList.remove("flash");
   void button.offsetWidth;
   button.classList.add("flash");
+}
+
+function getNumberKeyFromPointer(event) {
+  const element = document.elementFromPoint(event.clientX, event.clientY);
+  const button = element?.closest?.("[data-key]");
+
+  if (!button || !keypad.contains(button)) {
+    return getNearestNumberKey(event.clientX, event.clientY);
+  }
+
+  return button;
+}
+
+function getNearestNumberKey(x, y) {
+  let nearestButton = null;
+  let nearestDistance = Infinity;
+  const buttons = keypad.querySelectorAll("[data-key]");
+
+  buttons.forEach((button) => {
+    const rect = button.getBoundingClientRect();
+    const isInsideExpandedRect =
+      x >= rect.left - KEY_HIT_SLOP &&
+      x <= rect.right + KEY_HIT_SLOP &&
+      y >= rect.top - KEY_HIT_SLOP &&
+      y <= rect.bottom + KEY_HIT_SLOP;
+
+    if (!isInsideExpandedRect) {
+      return;
+    }
+
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const distance = Math.hypot(x - centerX, y - centerY);
+
+    if (distance < nearestDistance) {
+      nearestButton = button;
+      nearestDistance = distance;
+    }
+  });
+
+  return nearestButton;
+}
+
+function handleNumberPointer(event) {
+  event.preventDefault();
+
+  if (event.type === "pointerdown") {
+    if (!event.target.closest("[data-key]")) {
+      return;
+    }
+
+    lastKeyByPointerId.set(event.pointerId, "");
+
+    if (keypad.setPointerCapture) {
+      keypad.setPointerCapture(event.pointerId);
+    }
+  }
+
+  if (!lastKeyByPointerId.has(event.pointerId)) {
+    return;
+  }
+
+  const button = getNumberKeyFromPointer(event);
+
+  if (!button) {
+    lastKeyByPointerId.set(event.pointerId, "");
+    return;
+  }
+
+  const nextKey = button.dataset.key;
+
+  if (lastKeyByPointerId.get(event.pointerId) === nextKey) {
+    return;
+  }
+
+  lastKeyByPointerId.set(event.pointerId, nextKey);
+
+  if (pressNumber(nextKey)) {
+    flashKey(button);
+  }
+}
+
+function clearNumberPointer(event) {
+  lastKeyByPointerId.delete(event.pointerId);
 }
 
 function deleteOne() {
@@ -407,18 +493,11 @@ async function loadRanking() {
   renderRanking(rows);
 }
 
-numberKeys.forEach((button) => {
-  button.addEventListener("pointerdown", (event) => {
-    event.preventDefault();
-    if (button.setPointerCapture) {
-      button.setPointerCapture(event.pointerId);
-    }
-
-    if (pressNumber(button.dataset.key)) {
-      flashKey(button);
-    }
-  });
-});
+keypad.addEventListener("pointerdown", handleNumberPointer);
+keypad.addEventListener("pointermove", handleNumberPointer);
+keypad.addEventListener("pointerup", clearNumberPointer);
+keypad.addEventListener("pointercancel", clearNumberPointer);
+keypad.addEventListener("lostpointercapture", clearNumberPointer);
 
 clearButton.addEventListener("click", clearEntry);
 backButton.addEventListener("pointerdown", (event) => {

@@ -536,19 +536,16 @@ button {
 @keyframes keyFlash {
   0% {
     opacity: 1;
-    transform: scale(1);
     filter: brightness(1);
   }
 
   45% {
     opacity: 0.55;
-    transform: scale(1.08);
     filter: brightness(1.18);
   }
 
   100% {
     opacity: 1;
-    transform: scale(1);
     filter: brightness(1);
   }
 }
