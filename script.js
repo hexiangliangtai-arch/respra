@@ -283,7 +283,7 @@ function renderHistory() {
 
 function showNicknameModal() {
   nicknameInput.value = nickname;
-  nicknameMessage.textContent = "ランキングに表示する名前を入力してください";
+  nicknameMessage.textContent = "ニックネームはランキングに表示されます";
   nicknameMessage.classList.remove("error");
   nicknameModal.classList.add("open");
   nicknameModal.setAttribute("aria-hidden", "false");
@@ -401,13 +401,25 @@ async function loadRanking() {
 }
 
 numberKeys.forEach((button) => {
-  button.addEventListener("click", () => pressNumber(button.dataset.key));
+  button.addEventListener("pointerdown", (event) => {
+    event.preventDefault();
+    pressNumber(button.dataset.key);
+  });
 });
 
 clearButton.addEventListener("click", clearEntry);
-backButton.addEventListener("click", deleteOne);
-goButton.addEventListener("click", tryGo);
-submitButton.addEventListener("click", submitPractice);
+backButton.addEventListener("pointerdown", (event) => {
+  event.preventDefault();
+  deleteOne();
+});
+goButton.addEventListener("pointerdown", (event) => {
+  event.preventDefault();
+  tryGo();
+});
+submitButton.addEventListener("pointerdown", (event) => {
+  event.preventDefault();
+  submitPractice();
+});
 nextButton.addEventListener("click", startPractice);
 saveNicknameButton.addEventListener("click", saveNickname);
 resultNextButton.addEventListener("click", startPractice);
