@@ -1,3 +1,4 @@
+import { inject } from "https://esm.sh/@vercel/analytics";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
 import {
   collection,
@@ -11,6 +12,9 @@ import {
   serverTimestamp,
   setDoc,
 } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+// Initialize Vercel Analytics
+inject();
 
 const STORAGE_KEY = "respraResults";
 const NICKNAME_STORAGE_KEY = "respraNickname";
