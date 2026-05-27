@@ -154,13 +154,20 @@ function pressNumber(value) {
     isResultOpen() ||
     entry.length >= 9
   ) {
-    return;
+    return false;
   }
 
   entry += value;
   message.textContent = "";
   message.classList.remove("success");
   updateEntry();
+  return true;
+}
+
+function flashKey(button) {
+  button.classList.remove("flash");
+  void button.offsetWidth;
+  button.classList.add("flash");
 }
 
 function deleteOne() {
@@ -403,7 +410,13 @@ async function loadRanking() {
 numberKeys.forEach((button) => {
   button.addEventListener("pointerdown", (event) => {
     event.preventDefault();
-    pressNumber(button.dataset.key);
+    if (button.setPointerCapture) {
+      button.setPointerCapture(event.pointerId);
+    }
+
+    if (pressNumber(button.dataset.key)) {
+      flashKey(button);
+    }
   });
 });
 

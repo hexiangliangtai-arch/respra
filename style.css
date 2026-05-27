@@ -182,6 +182,10 @@ button {
   opacity: 0.72;
 }
 
+.key.flash {
+  animation: keyFlash 140ms ease-out;
+}
+
 .digit {
   display: block;
   font-size: clamp(76px, 22vw, 98px);
@@ -526,6 +530,26 @@ button {
   }
   75% {
     transform: translateX(-5px);
+  }
+}
+
+@keyframes keyFlash {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1);
+  }
+
+  45% {
+    opacity: 0.55;
+    transform: scale(1.08);
+    filter: brightness(1.18);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1);
   }
 }
 
