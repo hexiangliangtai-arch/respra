@@ -494,7 +494,6 @@ async function loadRanking() {
 }
 
 keypad.addEventListener("pointerdown", handleNumberPointer);
-keypad.addEventListener("pointermove", handleNumberPointer);
 keypad.addEventListener("pointerup", clearNumberPointer);
 keypad.addEventListener("pointercancel", clearNumberPointer);
 keypad.addEventListener("lostpointercapture", clearNumberPointer);
